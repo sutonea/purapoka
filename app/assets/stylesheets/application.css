@@ -13,3 +13,32 @@
  *= require_tree .
  *= require_self
  */
+
+.base {
+  padding: 2em;
+	background-color: #f0f0f0;
+  font-family: 'Arial';
+}
+
+.number {
+  font-size: x-large;
+}
+
+.button {
+  margin: 1em;
+  font-size: large;
+	border-style: solid;
+	border-color: #555;
+	border-radius: 1.0em;
+}
+
+.vote {
+  width: 3em;
+	height: 3em;
+	float: left;
+}
+
+.reset {
+  width: 8em;
+	height: 3em;
+}
