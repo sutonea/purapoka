@@ -1,0 +1,14 @@
+<h1>Rooms#show</h1>
+
+<p>Room URL: </p><p><%= room_url @room %></p>
+
+<% Choice.list.each do |number| %>
+
+  <%= form_with model: @choice, url: choice_room_path(@room) do |form| %>
+    <%= form.hidden_field :room_id, value: @room.id %>
+    <%= form.hidden_field :choice, value: number %>
+    <%= form.submit(number) %>
+  <% end %>
+<% end %>
+
+<p><%= "Your choice: #{@last_choice}" if @last_choice %></p>
