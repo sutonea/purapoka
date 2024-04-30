@@ -1,25 +1,38 @@
-<h1>Rooms#show</h1>
+<div class="base">
+  <details>
+    <summary>Room information</summary>
+    <p><div id='room-url'><%= room_url @room %></div></p>
+  </details>
 
-<p>Room URL: </p><p><%= room_url @room %></p>
+  <div id='results-panel'>
+    <p>Your choice: <span class='number'><%= @last_choice %></span></p>
+    <p>Average: <span class='number'><%= @average %></span></p>
+  </div>
 
-<% Choice.list.each do |number| %>
-
-  <%= form_with model: @choice, url: choice_room_path(@room) do |form| %>
-    <%= form.hidden_field :room_id, value: @room.id %>
-    <%= form.hidden_field :choice, value: number %>
-    <%= form.submit(number) %>
+  <% Choice.list.each do |number| %>
+    <%= form_with model: @choice, url: choice_room_path(@room) do |form| %>
+      <%= form.hidden_field :room_id, value: @room.id %>
+      <%= form.hidden_field :choice, value: number %>
+      <%= button_tag number, class: 'button vote' %>
+    <% end %>
   <% end %>
-<% end %>
 
-<%= form_with model: @choice, url: reset_room_path(@room) do |form| %>
-  <%= form.hidden_field :room_id, value: @room.id %>
-  <%= form.submit('reset') %>
-<% end %>
+  <%= form_with model: @choice, url: reset_room_path(@room) do |form| %>
+    <%= form.hidden_field :room_id, value: @room.id %>
+    <%= button_tag 'reset', class: 'button reset'  %>
+  <% end %>
 
-<p><%= "Your choice: #{@last_choice}" if @last_choice %></p>
-<p><%= "Average: #{@average}" if @average %></p>
+</div>
 
-<% debug @average %>
+
+<script type="text/javascript">
+  document.getElementById('room-url').addEventListener('click', function() {
+    var range = document.createRange();
+    range.selectNode(this);
+    window.getSelection().addRange(range);
+  });
+</script>
+              
 
 <% if @last_choice %>
   <% unless @average %>
