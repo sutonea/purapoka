@@ -21,5 +21,11 @@ test:
   database: storage/test.sqlite3
 
 production:
-  <<: *default
-  database: storage/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['PURAPOKA_DB_USERNAME'] %>
+  password: <%= ENV['PURAPOKA_DB_PASSWORD'] %>
+  host: <%= ENV['PURAPOKA_DB_HOST'] %>
+  port: <%= ENV['PURAPOKA_DB_PORT'] %>
+  database: <%= ENV['PURAPOKA_DB_NAME'] %>
