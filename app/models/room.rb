@@ -2,6 +2,7 @@ class Room < ApplicationRecord
   include PrimaryKeyIsUuid
 
   has_many :players
+  has_many :calculation_results
 
   after_initialize :after_initialize_callback
 

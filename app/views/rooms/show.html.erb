@@ -11,4 +11,41 @@
   <% end %>
 <% end %>
 
+<%= form_with model: @choice, url: reset_room_path(@room) do |form| %>
+  <%= form.hidden_field :room_id, value: @room.id %>
+  <%= form.submit('reset') %>
+<% end %>
+
 <p><%= "Your choice: #{@last_choice}" if @last_choice %></p>
+<p><%= "Average: #{@average}" if @average %></p>
+
+<% debug @average %>
+
+<% if @last_choice %>
+  <% unless @average %>
+    <script type="text/javascript">
+      setInterval(function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<%= average_room_path(@room) %>', true);
+        xhr.responseType = 'json';
+        xhr.onload = function(e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              var response = xhr.response;
+              console.log(response);
+              if (response.average) {
+                // 画面をリロードする
+                location.reload();
+              }
+              //if (response.last_choice) {
+              //  console.log(response);
+              //}
+            }
+          }
+        };
+        xhr.send(null);
+      }, 1000);
+
+    </script>
+  <% end %>
+<% end %>

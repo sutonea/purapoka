@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_30_012105) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_025404) do
+  create_table "calculation_results", force: :cascade do |t|
+    t.string "room_id", null: false
+    t.float "average"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_calculation_results_on_room_id"
+  end
+
   create_table "choices", force: :cascade do |t|
     t.integer "value"
     t.string "player_id", null: false
@@ -34,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_012105) do
     t.index ["expired_at"], name: "index_rooms_on_expired_at"
   end
 
+  add_foreign_key "calculation_results", "rooms"
   add_foreign_key "choices", "players"
   add_foreign_key "players", "rooms"
 end
