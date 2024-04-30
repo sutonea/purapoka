@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   get 'home/index'
+  get 'rooms' => 'home/index'
   resources :rooms, only: [:show, :create] do
     member do
       post :join
       post :choice
+      get :average
+      post :reset
     end
   end
 
